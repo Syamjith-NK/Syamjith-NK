@@ -11,11 +11,27 @@ statement of what the measurement does **not** establish.
 
 | | finding |
 |---|---|
-| **[arnum-tts](https://github.com/genviz-ai/arnum-tts)** | The same Arabic sentence with Arabic-Indic digits (٢٠٢٦) instead of Western (2026) drops from **73% to 7%** intelligible on one engine. Another handles both at 80% — a missing normalisation step, not a hard problem. |
-| **[arshape](https://github.com/genviz-ai/arshape)** | The `arabic_reshaper` + `python-bidi` recipe recommended in nearly every tutorial **corrupts** Arabic on any renderer that already shapes: 15/15 correct without it, 0/15 with it. |
-| **[arpdf](https://github.com/genviz-ai/arpdf)** | Reversed, ligature-mangled and space-collapsed are three distinct failure modes that a single pass/fail test collapses into one. |
+| **[arnum-tts](https://github.com/Syamjith-NK/arnum-tts)** | The same Arabic sentence with Arabic-Indic digits (٢٠٢٦) instead of Western (2026) drops from **73% to 7%** intelligible on one engine. Another handles both at 80% — a missing normalisation step, not a hard problem. |
+| **[arshape](https://github.com/Syamjith-NK/arshape)** | The `arabic_reshaper` + `python-bidi` recipe recommended in nearly every tutorial **corrupts** Arabic on any renderer that already shapes: 15/15 correct without it, 0/15 with it. |
+| **[arpdf](https://github.com/Syamjith-NK/arpdf)** | Reversed, ligature-mangled and space-collapsed are three distinct failure modes that a single pass/fail test collapses into one. |
 
 Datasets: **[huggingface.co/syamjithnk](https://huggingface.co/syamjithnk)**
+
+### The fix, not just the finding
+
+The numeral failure above is now a package anyone can install:
+
+```
+pip install arabic-tts-frontend
+```
+
+**[arabic-tts-frontend](https://github.com/Syamjith-NK/arabic-tts-frontend)** ·
+[PyPI](https://pypi.org/project/arabic-tts-frontend/) — numerals, dates, currency, times and
+percentages converted to spoken Arabic before the text reaches a TTS engine. MIT, zero
+dependencies. Re-measured against the released build on the same 45 sentences, same engine and
+scorer: **Arabic-Indic digits 0/15 → 11/15**. The scorer ships with it, so the figures can be
+re-derived rather than trusted, and the release notes state the run-to-run noise (±3) instead of
+quoting the overall number precisely.
 
 ### Upstream
 
