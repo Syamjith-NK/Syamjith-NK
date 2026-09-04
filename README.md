@@ -33,6 +33,15 @@ scorer: **Arabic-Indic digits 0/15 → 11/15**. The scorer ships with it, so the
 re-derived rather than trusted, and the release notes state the run-to-run noise (±3) instead of
 quoting the overall number precisely.
 
+### Writing
+
+**[The Arabic fix everyone recommends is now the bug](https://syamjith-nk.github.io/arabic-reshape-bidi-is-now-the-bug/)**
+— the `get_display(reshape(...))` recipe is in 1,180 indexed files on GitHub and now
+renders Arabic backwards on matplotlib 3.11, silently. Why the shaping half is
+detectable and the reordering half is not, and what happened when I filed it upstream.
+
+More at **[syamjith-nk.github.io](https://syamjith-nk.github.io)**.
+
 ### Upstream
 
 Filing the finding where the bug lives has reached far more people than publishing it ever did.
