@@ -3,6 +3,17 @@
 Cinematographer and AI creative technologist in Abu Dhabi. I work where film craft meets applied
 AI, and I publish open evaluation of the Arabic tooling that production depends on.
 
+**Checkable in ten seconds, without taking my word for anything:**
+
+| | |
+|---|---|
+| 🟣 **Merged into matplotlib** | [#32263](https://github.com/matplotlib/matplotlib/pull/32263), 4 Sep 2026. A documentation change, thirty lines: the upgrade guide now tells 3.11 upgraders to remove the Arabic workaround. The research behind it is the substance, not the diff. |
+| ✅ **Accepted answer, 15,226 views** | [Matplotlib: Writing right-to-left text](https://stackoverflow.com/a/80001368) — the canonical question, asked thirteen years ago. Every prior answer predates 3.11 and now reverses your text. |
+| 📦 **`pip install arabic-lint`** | [PyPI](https://pypi.org/project/arabic-lint/) — finds Arabic corrupted before it was stored. Zero dependencies, CI-ready. |
+| 📊 **Three open benchmarks** | [huggingface.co/syamjithnk](https://huggingface.co/syamjithnk) — CC BY 4.0, test sets, scorers and raw results included. |
+
+Full write-up with the measurements: **[syamjithnk.com/evidence](https://syamjithnk.com/evidence)**
+
 ### Arabic breaks silently — three benchmarks
 
 Each measures a failure that looks correct to anyone who does not read Arabic, which is exactly
@@ -51,9 +62,11 @@ Arabic itself, so the reshape+bidi recipe now runs twice and renders the label r
 raises; it looks like Arabic to anyone who cannot read it. Measured as mean absolute pixel
 difference against a reference render: **7.75** for the raw logical string (antialiasing only),
 **76.28** pre-shaped. Three maintainers replied within two days, including the project lead — and
-one of them went and **edited the StackOverflow answers** to say the workaround is only for older
-versions. That is the widest-reaching outcome of any of this and it cost nothing but filing
-accurately. Docs [PR #32263](https://github.com/matplotlib/matplotlib/pull/32263) is open.
+one of them went and **edited a StackOverflow answer** to say the workaround is only for older
+versions ([q47057509](https://stackoverflow.com/q/47057509), 30 August 2026). To be exact: that
+happened on one of the two big questions, not both. The canonical one still carried the pre-3.11
+advice, so I answered it there myself, and the asker accepted it. That is the widest-reaching
+outcome of any of this and it cost nothing but filing accurately. Docs [PR #32263](https://github.com/matplotlib/matplotlib/pull/32263) was **merged on 4 September 2026**.
 
 The project lead proposed a fix I had not thought of — wrapping pre-processed text in Unicode
 LRO/PDF — and said he was not confident it was right for Arabic. I could check, so I did: across
