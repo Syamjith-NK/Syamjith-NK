@@ -9,7 +9,7 @@ AI, and I publish open evaluation of the Arabic tooling that production depends 
 |---|---|
 | 🟣 **Merged into matplotlib** | [#32263](https://github.com/matplotlib/matplotlib/pull/32263), 4 Sep 2026. A documentation change, thirty lines: the upgrade guide now tells 3.11 upgraders to remove the Arabic workaround. The research behind it is the substance, not the diff. |
 | ✅ **Accepted answer, 15,226 views** | [Matplotlib: Writing right-to-left text](https://stackoverflow.com/a/80001368) — the canonical question, asked thirteen years ago. Every prior answer predates 3.11 and now reverses your text. |
-| 📦 **`pip install arabic-lint`** | [PyPI](https://pypi.org/project/arabic-lint/) — finds Arabic corrupted before it was stored. Zero dependencies, CI-ready. |
+| 📦 **`pip install arabic-lint`** | [PyPI](https://pypi.org/project/arabic-lint/) — finds Arabic corrupted before it was stored, and now the source code that will corrupt it at render time. Zero dependencies, CI-ready. |
 | 📊 **Three open benchmarks** | [huggingface.co/syamjithnk](https://huggingface.co/syamjithnk) — CC BY 4.0, test sets, scorers and raw results included. |
 
 Full write-up with the measurements: **[syamjithnk.com/evidence](https://syamjithnk.com/evidence)**
@@ -93,6 +93,16 @@ Still unanswered.
 **[arabic-lint](https://github.com/Syamjith-NK/arabic-lint)** — `pip install arabic-lint`. Finds
 Arabic that was corrupted *before it was stored*, in JSON, localisation files, database exports and
 source. Zero dependencies, exit code 1 on a finding, so it drops into CI unchanged.
+
+**0.2.0** adds a source check: the recipe appears in **3,168 indexed Python files**, and it reports
+only the ones where a renderer that already shapes is actually being drawn to. ReportLab, non-Raqm
+Pillow, terminal output and dead helpers stay silent, because a checker that flagged all 3,168
+would be switched off in a day. I read six real projects to build it: three were broken and I filed
+those ([1](https://github.com/whiteout-project/bot/issues/110),
+[2](https://github.com/shahkoorosh/ComfyUI-PersianText/issues/3),
+[3](https://github.com/kingshot-project/Kingshot-Discord-Bot/issues/28),
+[4](https://github.com/NoorBayan/Diwan/issues/3)); three were correct and are documented in
+[the write-up](https://syamjith-nk.github.io/most-of-these-are-not-bugs/).
 
 Detection is asymmetric, which is why this survived years of being copied: the shaping half leaves
 presentation-form codepoints that correctly authored Arabic never contains, so it is detectable —
