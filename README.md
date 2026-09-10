@@ -15,7 +15,7 @@ AI, and I publish open evaluation of the Arabic tooling that production depends 
 
 Full write-up with the measurements: **[syamjithnk.com/evidence](https://syamjithnk.com/evidence)**
 
-### Arabic breaks silently — three benchmarks
+### Arabic breaks silently — three benchmarks and an audit
 
 Each measures a failure that looks correct to anyone who does not read Arabic, which is exactly
 why it ships. All CC BY 4.0, with the test set, the scorer, the raw per-item results, and a plain
@@ -95,7 +95,7 @@ Still unanswered.
 Arabic that was corrupted *before it was stored*, in JSON, localisation files, database exports and
 source. Zero dependencies, exit code 1 on a finding, so it drops into CI unchanged.
 
-**0.2.0** adds a source check: the recipe appears in **3,168 indexed Python files**, and it reports
+**The current release** adds a source check: the recipe appears in **3,168 indexed Python files**, and it reports
 only the ones where a renderer that already shapes is actually being drawn to. ReportLab, non-Raqm
 Pillow, terminal output and dead helpers stay silent, because a checker that flagged all 3,168
 would be switched off in a day. I read six real projects to build it: three were broken and I filed
@@ -104,6 +104,12 @@ those ([1](https://github.com/whiteout-project/bot/issues/110),
 [3](https://github.com/kingshot-project/Kingshot-Discord-Bot/issues/28),
 [4](https://github.com/NoorBayan/Diwan/issues/3)); three were correct and are documented in
 [the write-up](https://syamjith-nk.github.io/most-of-these-are-not-bugs/).
+
+Since then it has gained `--doctor`, which reports whether *your* matplotlib and Pillow shape
+text so you know which case you are in; `--fix`, which rewrites the source findings that are
+mechanically safe and refuses the ones that are not; and severity, because across 276 audited
+datasets 361 of 363 findings were a single pasted glyph rather than a destroyed corpus, and
+those need different alarms.
 
 Detection is asymmetric, which is why this survived years of being copied: the shaping half leaves
 presentation-form codepoints that correctly authored Arabic never contains, so it is detectable —
