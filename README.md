@@ -98,12 +98,26 @@ source. Zero dependencies, exit code 1 on a finding, so it drops into CI unchang
 **The current release** adds a source check: the recipe appears in **3,168 indexed Python files**, and it reports
 only the ones where a renderer that already shapes is actually being drawn to. ReportLab, non-Raqm
 Pillow, terminal output and dead helpers stay silent, because a checker that flagged all 3,168
-would be switched off in a day. I read six real projects to build it: three were broken and I filed
-those ([1](https://github.com/whiteout-project/bot/issues/110),
-[2](https://github.com/shahkoorosh/ComfyUI-PersianText/issues/3),
-[3](https://github.com/kingshot-project/Kingshot-Discord-Bot/issues/28),
-[4](https://github.com/NoorBayan/Diwan/issues/3)); three were correct and are documented in
-[the write-up](https://syamjith-nk.github.io/most-of-these-are-not-bugs/).
+would be switched off in a day. I read six real projects to build it: three were broken, three were
+correct, and the correct ones are documented in
+[the write-up](https://syamjith-nk.github.io/most-of-these-are-not-bugs/), because a list that files
+every code-search hit is spam.
+
+**Two of the four reports have landed.**
+[whiteout-project/bot#110](https://github.com/whiteout-project/bot/issues/110) and
+[kingshot-project/Kingshot-Discord-Bot#28](https://github.com/kingshot-project/Kingshot-Discord-Bot/issues/28)
+were confirmed and closed as fixed on 12 September 2026 by the maintainer of both, who found the
+same pattern in a second code path neither report mentioned.
+[ComfyUI-PersianText#3](https://github.com/shahkoorosh/ComfyUI-PersianText/issues/3) and
+[Diwan#3](https://github.com/NoorBayan/Diwan/issues/3) are still open.
+
+He did not apply the fix I proposed, and that is the more useful outcome. Deleting the pre-shaping
+call is right for a project that sets its own dependency floor. His updater installs missing
+packages without bumping existing ones, so deleting it would have left every install still on the
+older renderer with no shaping at all, trading reversed text for disjointed text. He gated on the
+version instead: pass the logical string through on 3.11 and above, pre-shape below it. Nothing in
+a source file says which of those two cases a project is in, so the tool now documents both, and
+documents that it cannot tell them apart.
 
 Since then it has gained `--doctor`, which reports whether *your* matplotlib and Pillow shape
 text so you know which case you are in; `--fix`, which rewrites the source findings that are
