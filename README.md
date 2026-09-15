@@ -7,6 +7,7 @@ AI, and I publish open evaluation of the Arabic tooling that production depends 
 
 | | |
 |---|---|
+| 🔧 **Merged into pypdf** | [#4077](https://github.com/py-pdf/pypdf/pull/4077), 14 Sep 2026. Library code, not documentation: Arabic-Indic digits sat inside pypdf's right-to-left range, so each one was prepended and `١٢٣٤` extracted as `٤٣٢١`. Two lines of fix, eighty-one of test. |
 | 🟣 **Merged into matplotlib** | [#32263](https://github.com/matplotlib/matplotlib/pull/32263), 4 Sep 2026. A documentation change, thirty lines: the upgrade guide now tells 3.11 upgraders to remove the Arabic workaround. The research behind it is the substance, not the diff. |
 | ✅ **Accepted answer, 15,226 views** | [Matplotlib: Writing right-to-left text](https://stackoverflow.com/a/80001368) — the canonical question, asked thirteen years ago. Every prior answer predates 3.11 and now reverses your text. |
 | 📦 **`pip install arabic-lint`** | [PyPI](https://pypi.org/project/arabic-lint/) — finds Arabic corrupted before it was stored, and now the source code that will corrupt it at render time. Zero dependencies, CI-ready. |
@@ -57,6 +58,13 @@ More at **[syamjith-nk.github.io](https://syamjith-nk.github.io)**.
 ### Upstream
 
 Filing the finding where the bug lives has reached far more people than publishing it ever did.
+
+**[pypdf](https://github.com/py-pdf/pypdf/pull/4077)** — the first of these to land as library code
+rather than documentation. pypdf classified the Arabic-Indic digits U+0660–U+0669 as right-to-left,
+so text extraction prepended each one and `١٢٣٤` came back as `٤٣٢١`: the page number, the price and
+the date, reversed, in any Arabic PDF, with nothing raised. Unicode gives those digits no strong
+direction, so the fix is to move them to the neutral ranges — two lines. The other eighty-one lines
+of the patch are the test that pins it. Merged by the maintainer on 14 September 2026.
 
 **[matplotlib](https://github.com/matplotlib/matplotlib/issues/32262)** — matplotlib 3.11 shapes
 Arabic itself, so the reshape+bidi recipe now runs twice and renders the label reversed. Nothing
