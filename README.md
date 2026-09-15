@@ -12,7 +12,7 @@ AI, and I publish open evaluation of the Arabic tooling that production depends 
 | ✅ **Accepted answer, 15,226 views** | [Matplotlib: Writing right-to-left text](https://stackoverflow.com/a/80001368) — the canonical question, asked thirteen years ago. Every prior answer predates 3.11 and now reverses your text. |
 | 📦 **`pip install arabic-lint`** | [PyPI](https://pypi.org/project/arabic-lint/) — finds Arabic corrupted before it was stored, and now the source code that will corrupt it at render time. Zero dependencies, CI-ready. |
 | 📊 **Four open datasets** | [huggingface.co/syamjithnk](https://huggingface.co/syamjithnk) — CC BY 4.0, test sets, scorers and raw results included. |
-| 🔬 **Corpus audit: 341 Arabic datasets** | [arabic-corpus-audit](https://huggingface.co/datasets/syamjithnk/arabic-corpus-audit) — 276 readable, 119,517 text fields. One stores contextual glyph forms in every label sampled, and it is an OCR ground-truth set. |
+| 🔬 **Corpus audit: 341 Arabic datasets** | [arabic-corpus-audit](https://huggingface.co/datasets/syamjithnk/arabic-corpus-audit) — 276 readable, 119,517 text fields. One stores contextual glyph forms in every label sampled, and it is an OCR ground-truth set. Archived on Zenodo, so it can be cited: [doi.org/10.5281/zenodo.22733934](https://doi.org/10.5281/zenodo.22733934). |
 
 Full write-up with the measurements: **[syamjithnk.com/evidence](https://syamjithnk.com/evidence)**
 
