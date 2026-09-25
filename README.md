@@ -7,7 +7,8 @@ AI, and I publish open evaluation of the Arabic tooling that production depends 
 
 | | |
 |---|---|
-| 🔧 **Merged into pypdf** | [#4077](https://github.com/py-pdf/pypdf/pull/4077), 14 Sep 2026. Library code, not documentation: Arabic-Indic digits sat inside pypdf's right-to-left range, so each one was prepended and `١٢٣٤` extracted as `٤٣٢١`. Two lines of fix, eighty-one of test. |
+| 🔤 **Fixed in Google's SentencePiece** | [#1331](https://github.com/google/sentencepiece/issues/1331), reported 19 Sep 2026, closed as fixed on 22 Sep. `nmt_nfkc`, the default normaliser, stripped two of the twelve bidi control characters and left U+061C ARABIC LETTER MARK in place, so two Arabic strings that look identical could tokenise differently. SentencePiece's author [committed the fix](https://github.com/google/sentencepiece/commit/c9e4719b27eba6848d6d525ff5e73ef101027ab3) with a regression test. To be exact: I reported it, the code is his. |
+| 🔧 **Merged into pypdf, and shipped** | [#4077](https://github.com/py-pdf/pypdf/pull/4077), 14 Sep 2026, released in [6.19.0](https://github.com/py-pdf/pypdf/releases/tag/6.19.0) on 16 Sep. Library code, not documentation: Arabic-Indic digits sat inside pypdf's right-to-left range, so each one was prepended and `١٢٣٤` extracted as `٤٣٢١`. Two lines of fix, eighty-one of test. Listed since in pypdf's [CONTRIBUTORS](https://github.com/py-pdf/pypdf/blob/main/CONTRIBUTORS.md), for Arabic and RTL text handling. |
 | 🟣 **Merged into matplotlib** | [#32263](https://github.com/matplotlib/matplotlib/pull/32263), 4 Sep 2026. A documentation change, thirty lines: the upgrade guide now tells 3.11 upgraders to remove the Arabic workaround. The research behind it is the substance, not the diff. |
 | ✅ **Accepted answer, 15,226 views** | [Matplotlib: Writing right-to-left text](https://stackoverflow.com/a/80001368) — the canonical question, asked thirteen years ago. Every prior answer predates 3.11 and now reverses your text. |
 | 📦 **`pip install arabic-lint`** | [PyPI](https://pypi.org/project/arabic-lint/) — finds Arabic corrupted before it was stored, and now the source code that will corrupt it at render time. Zero dependencies, CI-ready. |
@@ -91,6 +92,19 @@ script produces correct text on one machine and broken text on another. On a Raq
 overclaiming a security angle. He was right, I dropped it, and the warning that remains is narrower
 and true.
 
+**[SentencePiece](https://github.com/google/sentencepiece/issues/1331)** - the one that reaches
+furthest, because `nmt_nfkc` is the default normaliser and SentencePiece sits underneath a large
+share of LLM tokenisers. Letters, digits and shaping in mature libraries are almost always fine;
+someone eventually tested them. The gaps are in the invisible `Cf` characters, because nobody
+thinks about them. `nmt_nfkc` stripped LRM (U+200E) and RLM (U+200F) and left U+061C ARABIC LETTER
+MARK, so two Arabic strings that render identically could tokenise differently. The argument that
+made it land was consistency, not frequency: you already handle characters of exactly this class
+and you missed these, which a maintainer can check in seconds. Taku Kudo closed it three days later
+with `Normalize U+061C (ARABIC LETTER MARK) to space in nmt_nfkc`, one mapping plus a regression
+test. The same sweep returned clean verdicts on `re2` and `libphonenumber`, and one real finding
+there went unreported because it fails closed. The clean verdicts are the reason the reports get
+read.
+
 **[python-arabic-reshaper](https://github.com/mpcabd/python-arabic-reshaper/issues/102)** —
 [issue #102](https://github.com/mpcabd/python-arabic-reshaper/issues/102) and
 [PR #103](https://github.com/mpcabd/python-arabic-reshaper/pull/103), adding the
@@ -132,6 +146,14 @@ text so you know which case you are in; `--fix`, which rewrites the source findi
 mechanically safe and refuses the ones that are not; and severity, because across 276 audited
 datasets 361 of 363 findings were a single pasted glyph rather than a destroyed corpus, and
 those need different alarms.
+
+It also has outside contributors now, which is the part I did not expect. Five people I have never
+met opened pull requests against issues I had written up, and three are merged: a check that files
+which look like text but do not decode as UTF-8 are reported rather than silently skipped (a UTF-16
+export full of corrupted Arabic used to come back `clean`), a correction to a false claim I had made
+about when an autofix is unsafe, and a refusal of an unsafe multi-codepoint recovery. Two more are
+open with review comments. Writing the issues down first is what made that possible; there was
+nothing to contribute to before.
 
 Detection is asymmetric, which is why this survived years of being copied: the shaping half leaves
 presentation-form codepoints that correctly authored Arabic never contains, so it is detectable —
