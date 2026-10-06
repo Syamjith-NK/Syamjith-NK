@@ -173,9 +173,24 @@ most of the work.
 When I found four faults in my own scorer I published a documented correction with old-to-new
 figures rather than editing the numbers quietly.
 
-### Also
+### The same method, pointed at film
 
 Brand and product films, VFX compositing, and AI-assisted image pipelines where the craft still
 governs the tool — a generated frame is judged on light, framing and rhythm like a photographed one.
+
+**[shotdrift](https://github.com/Syamjith-NK/shotdrift)** makes that checkable instead of asserted.
+It measures whether a video actually holds the camera move it was given: the camera path is
+recovered from the pixels alone — one similarity fit over phase-correlated tiles — so whatever the
+fit *cannot* explain becomes the incoherence measure, and `--expect push-in` tests the move that was
+asked for rather than whatever the clip happens to do. MIT, 43 tests, thresholds calibrated against
+real shots rather than chosen.
+
+Three checks were **removed rather than tuned**, which is the part worth reading. Structural
+residual cannot detect melting geometry: real footage measured **1.06** against **0.358** for a
+literal cross-dissolve between two different worlds — the ordering is reversed, because real scenes
+contain people and moving light and so change structure *more* than melting geometry does.
+Reversal-counting died the same way: a real operated zoom scored **27** against **3** in a
+deliberately broken control. Both are pinned as tests, so a known blind spot cannot quietly become
+a false positive later.
 
 [syamjithnk.com](https://syamjithnk.com) · Abu Dhabi, GMT+4
