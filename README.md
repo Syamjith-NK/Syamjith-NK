@@ -1,7 +1,23 @@
-## Syamjith NK
+# Syamjith NK
 
-Cinematographer and AI creative technologist in Abu Dhabi. I work where film craft meets applied
-AI, and I publish open evaluation of the Arabic tooling that production depends on.
+**Independent AI Researcher & Developer | Abu Dhabi, UAE**
+
+I research Arabic language technology and build AI tools for practical use. My work covers
+text rendering, speech, PDF extraction and generative-video evaluation, with public code,
+datasets and documented limitations.
+
+I also work in cinematography and creative technology, connecting research and software
+development with real production needs.
+
+[Research](https://syamjithnk.com/research) · [Work and evidence](https://syamjithnk.com/evidence) · [Website](https://syamjithnk.com) · [Datasets](https://huggingface.co/syamjithnk)
+
+### Selected research and development
+
+| Project | My work and public evidence | Scope and limitations |
+|---|---|---|
+| [ArNum-TTS](https://github.com/Syamjith-NK/arnum-tts) | Numeral-recovery evaluation in Arabic speech, with test sentences, stored transcripts, scoring code and correction history. | A small benchmark measured through TTS, automatic transcription and a number parser; the scores are not human listening accuracy. |
+| [arabic-lint](https://github.com/Syamjith-NK/arabic-lint) | A Python tool for detecting stored Arabic presentation forms and selected source patterns, with code and documented findings. | A finding needs context; it does not prove which processing step produced the text or cover every Arabic error. |
+| [shotdrift](https://github.com/Syamjith-NK/shotdrift) | Camera-motion measurement for video, with source, example reports and documented calibration. | Measures selected motion properties; it does not certify overall visual quality or detect every generation defect. |
 
 **Checkable in ten seconds, without taking my word for anything:**
 
@@ -25,7 +41,7 @@ statement of what the measurement does **not** establish.
 
 | | finding |
 |---|---|
-| **[arnum-tts](https://github.com/Syamjith-NK/arnum-tts)** | The same Arabic sentence with Arabic-Indic digits (٢٠٢٦) instead of Western (2026) drops from **73% to 7%** intelligible on one engine. Another handles both at 80% — a missing normalisation step, not a hard problem. |
+| **[arnum-tts](https://github.com/Syamjith-NK/arnum-tts)** | In the archived automated evaluation, fish scored **11/15 (73%)** for Western digits and **1/15 (7%)** for Arabic-Indic digits. Apple scored **13/15 (87%)** for each digit form after the [21 August scorer correction](https://github.com/Syamjith-NK/arnum-tts#changelog). These are recovery scores through TTS → Whisper → a number parser, not human listening accuracy. |
 | **[arshape](https://github.com/Syamjith-NK/arshape)** | The `arabic_reshaper` + `python-bidi` recipe recommended in nearly every tutorial **corrupts** Arabic on any renderer that already shapes: 15/15 correct without it, 0/15 with it. |
 | **[arpdf](https://github.com/Syamjith-NK/arpdf)** | Reversed, ligature-mangled and space-collapsed are three distinct failure modes that a single pass/fail test collapses into one. |
 
@@ -194,3 +210,4 @@ deliberately broken control. Both are pinned as tests, so a known blind spot can
 a false positive later.
 
 [syamjithnk.com](https://syamjithnk.com) · Abu Dhabi, GMT+4
+
