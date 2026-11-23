@@ -1,213 +1,49 @@
 # Syamjith NK
 
-**Independent AI Researcher & Developer | Abu Dhabi, UAE**
+**I measure things that look right and aren't.** Arabic that reads perfectly and is broken underneath. AI video that looks fine and never made the camera move it was asked for.
 
-I research Arabic language technology and build AI tools for practical use. My work covers
-text rendering, speech, PDF extraction and generative-video evaluation, with public code,
-datasets and documented limitations.
+Independent AI researcher and developer in Abu Dhabi, with a background in cinematography.
 
-I also work in cinematography and creative technology, connecting research and software
-development with real production needs.
+[Website](https://syamjithnk.com) · [Research](https://syamjithnk.com/research) · [Evidence](https://syamjithnk.com/evidence) · [Hugging Face](https://huggingface.co/syamjithnk) · [Writing](https://syamjith-nk.github.io)
 
-[Research](https://syamjithnk.com/research) · [Work and evidence](https://syamjithnk.com/evidence) · [Website](https://syamjithnk.com) · [Datasets](https://huggingface.co/syamjithnk)
+<a href="https://huggingface.co/datasets/syamjithnk/arnum-tts">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
+    <img src="assets/hero-light.svg" width="100%" alt="One Arabic text-to-speech engine, 15 sentences: 11 of 15 numbers recovered when written 2026, 1 of 15 when written in Arabic-Indic digits.">
+  </picture>
+</a>
 
-### Selected research and development
+### Tools
 
-| Project | My work and public evidence | Scope and limitations |
+| | What it does | |
 |---|---|---|
-| [ArNum-TTS](https://github.com/Syamjith-NK/arnum-tts) | Numeral-recovery evaluation in Arabic speech, with test sentences, stored transcripts, scoring code and correction history. | A small benchmark measured through TTS, automatic transcription and a number parser; the scores are not human listening accuracy. |
-| [arabic-lint](https://github.com/Syamjith-NK/arabic-lint) | A Python tool for detecting stored Arabic presentation forms and selected source patterns, with code and documented findings. | A finding needs context; it does not prove which processing step produced the text or cover every Arabic error. |
-| [shotdrift](https://github.com/Syamjith-NK/shotdrift) | Camera-motion measurement for video, with source, example reports and documented calibration. | Measures selected motion properties; it does not certify overall visual quality or detect every generation defect. |
+| [**arabic-lint**](https://github.com/Syamjith-NK/arabic-lint) | Finds Arabic corrupted before it was stored, and source code that will corrupt it. Zero dependencies, CI-ready. [Try it in the browser](https://huggingface.co/spaces/syamjithnk/arabic-lint). | `pip install arabic-lint` |
+| [**shotdrift**](https://github.com/Syamjith-NK/shotdrift) | Checks whether a video made the camera move it was asked for, from pixels alone. [ComfyUI nodes](https://github.com/Syamjith-NK/shotdrift-comfyui). | `pip install shotdrift` |
+| [**arabic-tts-frontend**](https://github.com/Syamjith-NK/arabic-tts-frontend) | Turns numerals, dates and currency into spoken Arabic before synthesis. Arabic-Indic digits went from 0/15 to 11/15 on the same engine. | `pip install arabic-tts-frontend` |
 
-**Checkable in ten seconds, without taking my word for anything:**
+### Merged and shipped upstream
 
-| | |
-|---|---|
-| 🔤 **Fixed in Google's SentencePiece** | [#1331](https://github.com/google/sentencepiece/issues/1331), reported 19 Sep 2026, closed as fixed on 22 Sep. `nmt_nfkc`, the default normaliser, stripped two of the twelve bidi control characters and left U+061C ARABIC LETTER MARK in place, so two Arabic strings that look identical could tokenise differently. SentencePiece's author [committed the fix](https://github.com/google/sentencepiece/commit/c9e4719b27eba6848d6d525ff5e73ef101027ab3) with a regression test. To be exact: I reported it, the code is his, and it is in the repository rather than in a release - v0.2.2 is the newest and predates it. |
-| 🔧 **Merged into pypdf, and shipped** | [#4077](https://github.com/py-pdf/pypdf/pull/4077), 14 Sep 2026, released in [6.19.0](https://github.com/py-pdf/pypdf/releases/tag/6.19.0) on 16 Sep. Library code, not documentation: Arabic-Indic digits sat inside pypdf's right-to-left range, so each one was prepended and `١٢٣٤` extracted as `٤٣٢١`. Two lines of fix, eighty-one of test. Listed since in pypdf's [CONTRIBUTORS](https://github.com/py-pdf/pypdf/blob/main/CONTRIBUTORS.md), for Arabic and RTL text handling. |
-| 🟣 **Merged into matplotlib** | [#32263](https://github.com/matplotlib/matplotlib/pull/32263), 4 Sep 2026. A documentation change, thirty lines: the upgrade guide now tells 3.11 upgraders to remove the Arabic workaround. The research behind it is the substance, not the diff. |
-| ✅ **Accepted answer, 15,226 views** | [Matplotlib: Writing right-to-left text](https://stackoverflow.com/a/80001368) — the canonical question, asked thirteen years ago. Every prior answer predates 3.11 and now reverses your text. |
-| 📦 **`pip install arabic-lint`** | [PyPI](https://pypi.org/project/arabic-lint/) — finds Arabic corrupted before it was stored, and now the source code that will corrupt it at render time. Zero dependencies, CI-ready. |
-| 📊 **Four open datasets** | [huggingface.co/syamjithnk](https://huggingface.co/syamjithnk) — CC BY 4.0, test sets, scorers and raw results included. |
-| 🔬 **Corpus audit: 341 Arabic datasets** | [arabic-corpus-audit](https://huggingface.co/datasets/syamjithnk/arabic-corpus-audit) — 276 readable, 119,517 text fields. One stores contextual glyph forms in every label sampled, and it is an OCR ground-truth set. Archived on Zenodo, so it can be cited: [doi.org/10.5281/zenodo.22733934](https://doi.org/10.5281/zenodo.22733934). |
+| Project | Contribution | Status |
+|---|---|---|
+| **pypdf** | [#4077](https://github.com/py-pdf/pypdf/pull/4077): Arabic-Indic digits now extract in the right order | Merged, released in [6.19.0](https://github.com/py-pdf/pypdf/releases/tag/6.19.0) |
+| **matplotlib** | [#32263](https://github.com/matplotlib/matplotlib/pull/32263): upgrade guidance for Arabic text in 3.11 (documentation) | Merged |
+| **SentencePiece** | [#1331](https://github.com/google/sentencepiece/issues/1331): reported a gap in bidi-control normalisation. The [fix](https://github.com/google/sentencepiece/commit/c9e4719b27eba6848d6d525ff5e73ef101027ab3) is the maintainer's | Fixed, in [v0.2.3](https://github.com/google/sentencepiece/releases/tag/v0.2.3) |
+| **Stack Overflow** | [Accepted answer](https://stackoverflow.com/a/80001368) on right-to-left text in Matplotlib | Question viewed 15,000+ times |
 
-Full write-up with the measurements: **[syamjithnk.com/evidence](https://syamjithnk.com/evidence)**
+### Open datasets and papers
 
-### Arabic breaks silently — three benchmarks and an audit
+| | Question | Result |
+|---|---|---|
+| [**OCR Numeral Fidelity**](https://huggingface.co/datasets/syamjithnk/ocr-numeral-fidelity) | Does OCR keep both the value and the script of a number? | 41 of 1,500 non-Western core trials kept both, neutral prompt. [Preprint](https://doi.org/10.5281/zenodo.23249467), not peer reviewed |
+| [**Arabic Corpus Audit**](https://huggingface.co/datasets/syamjithnk/arabic-corpus-audit) | Is public Arabic training data corrupted? | Of 341 datasets, 276 were readable and about 240 scanned in Arabic; 21 had findings, mostly stray glyphs. [DOI](https://doi.org/10.5281/zenodo.22733934) |
+| [**ArNum-TTS**](https://huggingface.co/datasets/syamjithnk/arnum-tts) | Do numbers survive Arabic speech synthesis? | One engine: 11/15 with `2026`, 1/15 with `٢٠٢٦` |
+| [**ArShape**](https://huggingface.co/datasets/syamjithnk/arshape) | Does the usual rendering recipe still work? | On a renderer that already shapes: 15/15 without it, 0/15 with it |
+| [**ArPDF**](https://huggingface.co/datasets/syamjithnk/arpdf) | Does Arabic survive a PDF round trip? | It depends on the generator and extractor pair, not on either tool |
 
-Each measures a failure that looks correct to anyone who does not read Arabic, which is exactly
-why it ships. All CC BY 4.0, with the test set, the scorer, the raw per-item results, and a plain
-statement of what the measurement does **not** establish.
-
-| | finding |
-|---|---|
-| **[arnum-tts](https://github.com/Syamjith-NK/arnum-tts)** | In the archived automated evaluation, fish scored **11/15 (73%)** for Western digits and **1/15 (7%)** for Arabic-Indic digits. Apple scored **13/15 (87%)** for each digit form after the [21 August scorer correction](https://github.com/Syamjith-NK/arnum-tts#changelog). These are recovery scores through TTS → Whisper → a number parser, not human listening accuracy. |
-| **[arshape](https://github.com/Syamjith-NK/arshape)** | The `arabic_reshaper` + `python-bidi` recipe recommended in nearly every tutorial **corrupts** Arabic on any renderer that already shapes: 15/15 correct without it, 0/15 with it. |
-| **[arpdf](https://github.com/Syamjith-NK/arpdf)** | Reversed, ligature-mangled and space-collapsed are three distinct failure modes that a single pass/fail test collapses into one. |
-
-Datasets: **[huggingface.co/syamjithnk](https://huggingface.co/syamjithnk)**
-
-### The fix, not just the finding
-
-The numeral failure above is now a package anyone can install:
-
-```
-pip install arabic-tts-frontend
-```
-
-**[arabic-tts-frontend](https://github.com/Syamjith-NK/arabic-tts-frontend)** ·
-[PyPI](https://pypi.org/project/arabic-tts-frontend/) — numerals, dates, currency, times and
-percentages converted to spoken Arabic before the text reaches a TTS engine. MIT, zero
-dependencies. Re-measured against the released build on the same 45 sentences, same engine and
-scorer: **Arabic-Indic digits 0/15 → 11/15**. The scorer ships with it, so the figures can be
-re-derived rather than trusted, and the release notes state the run-to-run noise (±3) instead of
-quoting the overall number precisely.
-
-### Writing
-
-**[The Arabic fix everyone recommends is now the bug](https://syamjith-nk.github.io/arabic-reshape-bidi-is-now-the-bug/)**
-— the `get_display(reshape(...))` recipe is in 1,180 indexed files on GitHub and now
-renders Arabic backwards on matplotlib 3.11, silently. Why the shaping half is
-detectable and the reordering half is not, and what happened when I filed it upstream.
-
-More at **[syamjith-nk.github.io](https://syamjith-nk.github.io)**.
-
-### Upstream
-
-Filing the finding where the bug lives has reached far more people than publishing it ever did.
-
-**[pypdf](https://github.com/py-pdf/pypdf/pull/4077)** — the first of these to land as library code
-rather than documentation. pypdf classified the Arabic-Indic digits U+0660–U+0669 as right-to-left,
-so text extraction prepended each one and `١٢٣٤` came back as `٤٣٢١`: the page number, the price and
-the date, reversed, in any Arabic PDF, with nothing raised. Unicode gives those digits no strong
-direction, so the fix is to move them to the neutral ranges — two lines. The other eighty-one lines
-of the patch are the test that pins it. Merged by the maintainer on 14 September 2026.
-
-**[matplotlib](https://github.com/matplotlib/matplotlib/issues/32262)** — matplotlib 3.11 shapes
-Arabic itself, so the reshape+bidi recipe now runs twice and renders the label reversed. Nothing
-raises; it looks like Arabic to anyone who cannot read it. Measured as mean absolute pixel
-difference against a reference render: **7.75** for the raw logical string (antialiasing only),
-**76.28** pre-shaped. Three maintainers replied within two days, including the project lead — and
-one of them went and **edited a StackOverflow answer** to say the workaround is only for older
-versions ([q47057509](https://stackoverflow.com/q/47057509), 30 August 2026). To be exact: that
-happened on one of the two big questions, not both. The canonical one still carried the pre-3.11
-advice, so I answered it there myself, and the asker accepted it. That is the widest-reaching
-outcome of any of this and it cost nothing but filing accurately. Docs [PR #32263](https://github.com/matplotlib/matplotlib/pull/32263) was **merged on 4 September 2026**.
-
-The project lead proposed a fix I had not thought of — wrapping pre-processed text in Unicode
-LRO/PDF — and said he was not confident it was right for Arabic. I could check, so I did: across
-three fonts and nine strings it reads correctly in all of them, but does not always *render*
-identically, because the wrapped string draws the font's static presentation forms instead of the
-font's own shaping. That exchange is the argument for filing upstream rather than blogging first.
-He had the better fix; I had the only way to verify it.
-
-**[Pillow](https://github.com/python-pillow/Pillow/pull/9925)** — the same class of failure,
-different mechanism: Pillow's behaviour depends on whether it was built with Raqm, so the identical
-script produces correct text on one machine and broken text on another. On a Raqm-enabled build,
-**0 of 15** strings survive the recipe unchanged. The maintainer pushed back on my first draft for
-overclaiming a security angle. He was right, I dropped it, and the warning that remains is narrower
-and true.
-
-**[SentencePiece](https://github.com/google/sentencepiece/issues/1331)** - the one that reaches
-furthest, because `nmt_nfkc` is the default normaliser and SentencePiece sits underneath a large
-share of LLM tokenisers. Letters, digits and shaping in mature libraries are almost always fine;
-someone eventually tested them. The gaps are in the invisible `Cf` characters, because nobody
-thinks about them. `nmt_nfkc` stripped LRM (U+200E) and RLM (U+200F) and left U+061C ARABIC LETTER
-MARK, so two Arabic strings that render identically could tokenise differently. The argument that
-made it land was consistency, not frequency: you already handle characters of exactly this class
-and you missed these, which a maintainer can check in seconds. Taku Kudo closed it three days later
-with `Normalize U+061C (ARABIC LETTER MARK) to space in nmt_nfkc`, one mapping plus a regression
-test. The same sweep returned clean verdicts on `re2` and `libphonenumber`, and one real finding
-there went unreported because it fails closed. The clean verdicts are the reason the reports get
-read.
-
-**[python-arabic-reshaper](https://github.com/mpcabd/python-arabic-reshaper/issues/102)** —
-[issue #102](https://github.com/mpcabd/python-arabic-reshaper/issues/102) and
-[PR #103](https://github.com/mpcabd/python-arabic-reshaper/pull/103), adding the
-`PIL.features.check("raqm")` test to the README so readers can tell which case they are in.
-Still unanswered.
-
-### The linter
-
-**[arabic-lint](https://github.com/Syamjith-NK/arabic-lint)** — `pip install arabic-lint`. Finds
-Arabic that was corrupted *before it was stored*, in JSON, localisation files, database exports and
-source. Zero dependencies, exit code 1 on a finding, so it drops into CI unchanged.
-
-**The current release** adds a source check: the recipe appears in **3,168 indexed Python files**, and it reports
-only the ones where a renderer that already shapes is actually being drawn to. ReportLab, non-Raqm
-Pillow, terminal output and dead helpers stay silent, because a checker that flagged all 3,168
-would be switched off in a day. I read six real projects to build it: three were broken, three were
-correct, and the correct ones are documented in
-[the write-up](https://syamjith-nk.github.io/most-of-these-are-not-bugs/), because a list that files
-every code-search hit is spam.
-
-**Two of the four reports have landed.**
-[whiteout-project/bot#110](https://github.com/whiteout-project/bot/issues/110) and
-[kingshot-project/Kingshot-Discord-Bot#28](https://github.com/kingshot-project/Kingshot-Discord-Bot/issues/28)
-were confirmed and closed as fixed on 12 September 2026 by the maintainer of both, who found the
-same pattern in a second code path neither report mentioned.
-[ComfyUI-PersianText#3](https://github.com/shahkoorosh/ComfyUI-PersianText/issues/3) and
-[Diwan#3](https://github.com/NoorBayan/Diwan/issues/3) are still open.
-
-He did not apply the fix I proposed, and that is the more useful outcome. Deleting the pre-shaping
-call is right for a project that sets its own dependency floor. His updater installs missing
-packages without bumping existing ones, so deleting it would have left every install still on the
-older renderer with no shaping at all, trading reversed text for disjointed text. He gated on the
-version instead: pass the logical string through on 3.11 and above, pre-shape below it. Nothing in
-a source file says which of those two cases a project is in, so the tool now documents both, and
-documents that it cannot tell them apart.
-
-Since then it has gained `--doctor`, which reports whether *your* matplotlib and Pillow shape
-text so you know which case you are in; `--fix`, which rewrites the source findings that are
-mechanically safe and refuses the ones that are not; and severity, because across 276 audited
-datasets 361 of 363 findings were a single pasted glyph rather than a destroyed corpus, and
-those need different alarms.
-
-It also has outside contributors now, which is the part I did not expect. Five people I have never
-met opened pull requests against issues I had written up, and three are merged: a check that files
-which look like text but do not decode as UTF-8 are reported rather than silently skipped (a UTF-16
-export full of corrupted Arabic used to come back `clean`), a correction to a false claim I had made
-about when an autofix is unsafe, and a refusal of an unsafe multi-codepoint recovery. Two more are
-open with review comments. Writing the issues down first is what made that possible; there was
-nothing to contribute to before.
-
-Detection is asymmetric, which is why this survived years of being copied: the shaping half leaves
-presentation-form codepoints that correctly authored Arabic never contains, so it is detectable —
-but the reordering half produces identical codepoints in a different order, so no general detector
-exists for it. And the damage is not cleanly reversible: lam-alef is one codepoint that decomposes
-to two, in logical order, while the text around it is in visual order. `الإمارات` goes 8 codepoints
-to 7, and the obvious NFKC repair turns `السلام` into `السالم` — a real but different word. The
-tool refuses to auto-fix those rather than guess.
+These are small, controlled tests. Each one ships its raw results and says what it does not prove.
 
 ### How I work
 
-In two of the three benchmarks the measurement contradicted the assumption I started with, and the
-write-ups say so. In `arshape` a pass/fail scorer reported a broken configuration as working;
-adding a middle band is what surfaced the real result. Designing a test that can prove you wrong is
-most of the work.
+I design the test so it can prove me wrong, and publish corrections with the old and new figures side by side. When my own scorer turned out to be faulty, [the fix and the changed numbers](https://huggingface.co/datasets/syamjithnk/arnum-tts#corrections) went out together. In shotdrift, checks that failed on real footage were [removed, not tuned](https://github.com/Syamjith-NK/shotdrift).
 
-When I found four faults in my own scorer I published a documented correction with old-to-new
-figures rather than editing the numbers quietly.
-
-### The same method, pointed at film
-
-Brand and product films, VFX compositing, and AI-assisted image pipelines where the craft still
-governs the tool — a generated frame is judged on light, framing and rhythm like a photographed one.
-
-**[shotdrift](https://github.com/Syamjith-NK/shotdrift)** makes that checkable instead of asserted.
-It measures whether a video actually holds the camera move it was given: the camera path is
-recovered from the pixels alone — one similarity fit over phase-correlated tiles — so whatever the
-fit *cannot* explain becomes the incoherence measure, and `--expect push-in` tests the move that was
-asked for rather than whatever the clip happens to do. MIT, 43 tests, thresholds calibrated against
-real shots rather than chosen.
-
-Three checks were **removed rather than tuned**, which is the part worth reading. Structural
-residual cannot detect melting geometry: real footage measured **1.06** against **0.358** for a
-literal cross-dissolve between two different worlds — the ordering is reversed, because real scenes
-contain people and moving light and so change structure *more* than melting geometry does.
-Reversal-counting died the same way: a real operated zoom scored **27** against **3** in a
-deliberately broken control. Both are pinned as tests, so a known blind spot cannot quietly become
-a false positive later.
-
-[syamjithnk.com](https://syamjithnk.com) · Abu Dhabi, GMT+4
-
+Also built: a real-time [Gulf Arabic voice agent](https://github.com/Syamjith-NK/arabic-voice-agent) on streaming speech recognition.
